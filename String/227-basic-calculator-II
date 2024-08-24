@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int calculate(string s) {
+        int length=s.length();
+        if(length==0)return 0;
+        int currNum=0,lastNum=0,result=0;
+        char sign='+';
+        for(int i=0;i<length;i++){
+            char currChar=s[i];
+            if(isdigit(currChar)){
+                currNum=(currNum*10)+(currChar-'0');
+            }
+            if(!isdigit(currChar)&&!iswspace(currChar)||i==length-1){
+                if(sign=='+'||sign=='-'){
+                    result+=lastNum;
+                    lastNum=(sign=='+')?currNum:-currNum;
+                }else if(sign=='*'){
+                    lastNum=lastNum*currNum;
+                }else if(sign=='/'){
+                    lastNum=lastNum/currNum;
+                }
+                sign=currChar;
+                currNum=0;
+            }
+        }
+        result+=lastNum;
+        return result;
+    }
+};
